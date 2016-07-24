@@ -1,3 +1,5 @@
+var debug=require('debug')('ifttt:date');
+
 function calcTimeJulianCent(jd)
 {
   var T = (jd - 2451545.0)/36525.0
@@ -523,7 +525,7 @@ function getTarget(fields, target){
             return getTarget(fields, target);
         }
     }
-    console.log(target);
+    debug(target);
 
 	return target;
 }

@@ -3,13 +3,16 @@ var getTarget=require('./date.js');
 function intervaller(fields, callback){
     
 	var timeOut=setTimeout(function(){
+	    process.removeListener('exit', cancelPreviousListener)
 		intervaller(fields, callback);
 		callback(fields);
 	}, getTarget(fields).getTime()-new Date().getTime());
 	
-	process.on('exit',function(){
+    var cancelPreviousListener=function(){
         clearTimeout(timeOut);
-	});
+	};
+	
+	process.on('exit',cancelPreviousListener);
 }
 
 module.exports={"name":"date", "triggers":[
